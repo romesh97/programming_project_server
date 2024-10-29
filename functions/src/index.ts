@@ -3,6 +3,9 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as cors from "cors";
 
+//import Handlers
+import { registerHandler } from "./handlers/register";
+
 admin.initializeApp();
 //import Handlers
 
@@ -12,3 +15,8 @@ admin.initializeApp();
 // });
 
 // setup cors for XML issue
+const corsHandler = cors({ origin: true });
+
+export const addUser = functions.https.onRequest((req, res) => {
+  return corsHandler(req, res, () => registerHandler(req, res));
+});
