@@ -5,6 +5,7 @@ import * as cors from "cors";
 
 //import Handlers
 import { registerHandler } from "./handlers/register";
+import { loginHandler } from "./handlers/login";
 
 admin.initializeApp();
 //import Handlers
@@ -19,4 +20,8 @@ const corsHandler = cors({ origin: true });
 
 export const addUser = functions.https.onRequest((req, res) => {
   return corsHandler(req, res, () => registerHandler(req, res));
+});
+
+export const loginUser = functions.https.onRequest((req, res) => {
+  return corsHandler(req, res, () => loginHandler(req, res));
 });
